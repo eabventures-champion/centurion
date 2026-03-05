@@ -94,12 +94,11 @@
         <header class="glass-header fixed top-0 left-0 right-0 z-[60]">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex justify-between items-center h-20">
-                    <div class="flex items-center gap-3">
-                        <div
-                            class="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-500/20 p-2 text-white">
+                    <div class="flex items-center gap-2">
+                        <div class="w-24 h-24 flex items-center justify-center transition-all -my-4 p-1">
                             <x-application-logo class="w-full h-full" />
                         </div>
-                        <span class="font-black text-lg tracking-tight uppercase">Centurion Campaign</span>
+                        <span class="font-black text-xl tracking-tight uppercase">Centurion Campaign</span>
                     </div>
 
                     <nav class="hidden md:flex items-center gap-8">
