@@ -90,7 +90,8 @@
         <div class="relative z-10 w-full max-w-4xl">
             <div class="flex flex-col items-center mb-8">
                 <a href="/" class="group transition-transform active:scale-95">
-                    <div class="w-32 h-32 flex items-center justify-center transition-all">
+                    <div
+                        class="w-64 h-64 sm:w-80 sm:h-80 md:w-[450px] md:h-[450px] flex items-center justify-center transition-all -mb-16 md:-mb-24">
                         <x-application-logo class="w-full h-full" />
                     </div>
                 </a>
