@@ -1,8 +1,5 @@
 <x-guest-layout>
     <div class="mb-10 text-center relative">
-        <div class="flex justify-center mb-6">
-            <x-application-logo class="w-32 h-32" />
-        </div>
         <h2 class="text-4xl font-black text-white tracking-tighter leading-none">JOIN THE MOVEMENT</h2>
         <p class="text-sm text-slate-400 mt-4 max-w-xs mx-auto font-medium">
             Register as a Pastor to manage your church, souls, and follow-up activities.
