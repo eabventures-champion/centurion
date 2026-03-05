@@ -271,7 +271,7 @@
             </header>
 
             <!-- Page Content -->
-            <main class="p-8 flex-1">
+            <main class="p-4 md:p-8 flex-1">
                 {{ $slot }}
             </main>
         </div>
