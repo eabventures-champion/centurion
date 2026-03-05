@@ -43,6 +43,7 @@ class DashboardController extends Controller
             'my_church_first_timers' => 0,
             'my_church_retained' => 0,
             'recent_visitors' => collect(),
+            'pending_approvals_count' => 0,
         ];
 
         if ($user->hasRole('Super Admin')) {
@@ -143,6 +144,7 @@ class DashboardController extends Controller
                 });
 
             $stats['recent_registrations'] = FirstTimer::with('church')->latest()->take(5)->get();
+            $stats['pending_approvals_count'] = \App\Models\User::where('is_approved', false)->count();
 
         } elseif ($user->hasRole('Admin')) {
             $church = $user->church();

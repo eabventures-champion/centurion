@@ -4,6 +4,32 @@
     </x-slot>
 
     <div class="space-y-8">
+        @if(auth()->user()->hasRole('Super Admin') && ($stats['pending_approvals_count'] ?? 0) > 0)
+            <div
+                class="glass-card mb-6 p-4 bg-amber-500/10 border border-amber-500/20 rounded-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 animate-pulse-subtle">
+                <div class="flex items-center gap-3">
+                    <div class="p-2 bg-amber-500/15 rounded-xl">
+                        <svg class="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <p class="text-sm font-black text-amber-600 dark:text-amber-400">
+                            {{ $stats['pending_approvals_count'] }} Pending
+                            Approval{{ $stats['pending_approvals_count'] !== 1 ? 's' : '' }}
+                        </p>
+                        <p class="text-[10px] font-bold text-amber-600/70 dark:text-amber-500/70 uppercase tracking-widest">
+                            Review and approve new admin accounts</p>
+                    </div>
+                </div>
+                <a href="{{ route('users.index') }}"
+                    class="px-4 py-2 bg-amber-500 text-white text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-amber-600 transition-all shadow-lg shadow-amber-500/20">
+                    Review Now
+                </a>
+            </div>
+        @endif
+
         <!-- Top Row Stats -->
         <div class="grid grid-cols-2 md:grid-cols-4 gap-3 lg:gap-4">
             <!-- Total First Timers -->
@@ -210,7 +236,8 @@
                                 <div>
                                     <div class="flex justify-between text-[10px] font-bold mb-2">
                                         <span class="text-slate-500 uppercase tracking-widest">MALE</span>
-                                        <span class="text-slate-900 dark:text-white font-black">{{ $stats['gender_dist_main']['male'] ?? 0 }}
+                                        <span
+                                            class="text-slate-900 dark:text-white font-black">{{ $stats['gender_dist_main']['male'] ?? 0 }}
                                             ({{ $stats['gender_dist_main']['male_percent'] ?? 0 }}%)</span>
                                     </div>
                                     <div class="h-1.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
@@ -221,7 +248,8 @@
                                 <div>
                                     <div class="flex justify-between text-[10px] font-bold mb-2">
                                         <span class="text-slate-500 uppercase tracking-widest">FEMALE</span>
-                                        <span class="text-slate-900 dark:text-white font-black">{{ $stats['gender_dist_main']['female'] ?? 0 }}
+                                        <span
+                                            class="text-slate-900 dark:text-white font-black">{{ $stats['gender_dist_main']['female'] ?? 0 }}
                                             ({{ $stats['gender_dist_main']['female_percent'] ?? 0 }}%)</span>
                                     </div>
                                     <div class="h-1.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
@@ -245,7 +273,8 @@
                                 <div>
                                     <div class="flex justify-between text-[10px] font-bold mb-2">
                                         <span class="text-slate-500 uppercase tracking-widest">MALE</span>
-                                        <span class="text-slate-900 dark:text-white font-black">{{ $stats['gender_dist_other']['male'] ?? 0 }}
+                                        <span
+                                            class="text-slate-900 dark:text-white font-black">{{ $stats['gender_dist_other']['male'] ?? 0 }}
                                             ({{ $stats['gender_dist_other']['male_percent'] ?? 0 }}%)</span>
                                     </div>
                                     <div class="h-1.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
@@ -256,7 +285,8 @@
                                 <div>
                                     <div class="flex justify-between text-[10px] font-bold mb-2">
                                         <span class="text-slate-500 uppercase tracking-widest">FEMALE</span>
-                                        <span class="text-slate-900 dark:text-white font-black">{{ $stats['gender_dist_other']['female'] ?? 0 }}
+                                        <span
+                                            class="text-slate-900 dark:text-white font-black">{{ $stats['gender_dist_other']['female'] ?? 0 }}
                                             ({{ $stats['gender_dist_other']['female_percent'] ?? 0 }}%)</span>
                                     </div>
                                     <div class="h-1.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
@@ -314,8 +344,10 @@
                             @foreach($celebrants as $person)
                                 <div
                                     class="flex items-center justify-between p-3 bg-slate-50 dark:bg-white/5 rounded-xl border border-slate-200 dark:border-white/5 hover:border-indigo-500/30 transition-all">
-                                    <span class="text-sm font-medium text-slate-700 dark:text-slate-200">{{ $person->full_name }}</span>
-                                    <span class="text-[10px] px-2 py-1 bg-indigo-500/10 text-indigo-600 dark:text-indigo-300 rounded-md font-bold">
+                                    <span
+                                        class="text-sm font-medium text-slate-700 dark:text-slate-200">{{ $person->full_name }}</span>
+                                    <span
+                                        class="text-[10px] px-2 py-1 bg-indigo-500/10 text-indigo-600 dark:text-indigo-300 rounded-md font-bold">
                                         {{ preg_match('/^\d{2}-\d{2}$/', $person->date_of_birth) ? \Carbon\Carbon::createFromFormat('d-m', $person->date_of_birth)->format('M d') : \Carbon\Carbon::parse($person->date_of_birth)->format('M d') }}
                                     </span>
                                 </div>
@@ -344,15 +376,20 @@
         <div class="glass-card w-full max-w-3xl transform transition-all duration-300 scale-95 opacity-0 overflow-hidden flex flex-col max-h-[90vh]"
             id="tierModalContent">
             <!-- Modal Header -->
-            <div class="p-5 border-b border-slate-200 dark:border-white/5 flex justify-between items-center bg-slate-50 dark:bg-white/5">
+            <div
+                class="p-5 border-b border-slate-200 dark:border-white/5 flex justify-between items-center bg-slate-50 dark:bg-white/5">
                 <div>
-                    <h3 id="tierModalTitle" class="text-lg font-bold text-slate-900 dark:text-white tracking-tight flex items-center gap-3">
-                        <span id="tierModalIcon" class="p-2 rounded-lg bg-indigo-500/20 text-indigo-600 dark:text-indigo-400">
+                    <h3 id="tierModalTitle"
+                        class="text-lg font-bold text-slate-900 dark:text-white tracking-tight flex items-center gap-3">
+                        <span id="tierModalIcon"
+                            class="p-2 rounded-lg bg-indigo-500/20 text-indigo-600 dark:text-indigo-400">
                             <!-- Icon injected via JS -->
                         </span>
                         <span id="tierModalName">Tier Name</span>
                     </h3>
-                    <p id="tierModalSubtitle" class="text-[10px] text-slate-500 dark:text-slate-400 mt-1 font-bold uppercase tracking-wide">Showing all
+                    <p id="tierModalSubtitle"
+                        class="text-[10px] text-slate-500 dark:text-slate-400 mt-1 font-bold uppercase tracking-wide">
+                        Showing all
                         bringers in this category</p>
                 </div>
                 <button onclick="closeTierModal()"
@@ -365,7 +402,8 @@
             </div>
 
             <!-- Modal Body (Scrollable) -->
-            <div class="p-5 overflow-y-auto flex-1 scrollbar-thin scrollbar-thumb-slate-300 dark:scrollbar-thumb-slate-700">
+            <div
+                class="p-5 overflow-y-auto flex-1 scrollbar-thin scrollbar-thumb-slate-300 dark:scrollbar-thumb-slate-700">
                 <div id="tierModalList" class="space-y-3">
                     <!-- List injected via JS -->
                 </div>
@@ -447,54 +485,54 @@
                         const item = document.createElement('div');
                         item.className = 'flex items-center justify-between p-3.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/5 hover:border-indigo-500/30 transition-colors group';
                         item.innerHTML = `
-                                            <div class="flex items-center gap-4">
-                                                <div class="w-10 h-10 rounded-full bg-slate-200 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 flex items-center justify-center text-slate-600 dark:text-slate-400 font-bold uppercase">
-                                                    ${bringer.name ? bringer.name.substring(0, 2) : 'UK'}
-                                                </div>
-                                                <div>
-                                                    <h4 class="text-sm font-bold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">${bringer.name || 'Unknown'}</h4>
-                                                    <div class="flex items-center gap-3 mt-1">
-                                                        <span class="text-[10px] text-slate-500 dark:text-slate-400 flex items-center gap-1 font-medium">
-                                                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
-                                                                ${bringer.contact || 'N/A'}
+                                                <div class="flex items-center gap-4">
+                                                    <div class="w-10 h-10 rounded-full bg-slate-200 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 flex items-center justify-center text-slate-600 dark:text-slate-400 font-bold uppercase">
+                                                        ${bringer.name ? bringer.name.substring(0, 2) : 'UK'}
+                                                    </div>
+                                                    <div>
+                                                        <h4 class="text-sm font-bold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">${bringer.name || 'Unknown'}</h4>
+                                                        <div class="flex items-center gap-3 mt-1">
+                                                            <span class="text-[10px] text-slate-500 dark:text-slate-400 flex items-center gap-1 font-medium">
+                                                                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                                                                    ${bringer.contact || 'N/A'}
+                                                                </span>
+                                                                ${bringer.senior_cell_name ? `
+                                                                <span class="text-xs text-slate-400 flex items-center gap-1">
+                                                                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+                                                                    ${bringer.senior_cell_name}
+                                                                </span>
+                                                                ` : ''}
+                                                                ${bringer.cell_name ? `
+                                                                <span class="text-xs text-slate-400 flex items-center gap-1">
+                                                                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                                                                    ${bringer.cell_name}
+                                                                </span>
+                                                                ` : ''}
+                                                                ${bringer.fellowship_name && bringer.fellowship_name !== 'Unassigned' ? `
+                                                                <span class="px-2 py-0.5 rounded text-[9px] uppercase font-black bg-yellow-500/10 text-yellow-600 dark:text-yellow-400 border border-yellow-500/20 flex items-center gap-1">
+                                                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+                                                                ${bringer.fellowship_name}
                                                             </span>
-                                                            ${bringer.senior_cell_name ? `
-                                                            <span class="text-xs text-slate-400 flex items-center gap-1">
-                                                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
-                                                                ${bringer.senior_cell_name}
+                                                                ` : ''}
+                                                            </div>
+                                                            <div class="flex flex-wrap items-center gap-2 mt-2">
+                                                            <span class="px-2 py-0.5 rounded text-[9px] uppercase font-bold bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-white/10">
+                                                                ${bringer.first_timers_count || 0} First Timers
                                                             </span>
-                                                            ` : ''}
-                                                            ${bringer.cell_name ? `
-                                                            <span class="text-xs text-slate-400 flex items-center gap-1">
-                                                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
-                                                                ${bringer.cell_name}
+                                                            <span class="px-2 py-0.5 rounded text-[9px] uppercase font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                                                                ${bringer.retained_members_count || 0} Retained
                                                             </span>
-                                                            ` : ''}
-                                                            ${bringer.fellowship_name && bringer.fellowship_name !== 'Unassigned' ? `
-                                                            <span class="px-2 py-0.5 rounded text-[9px] uppercase font-black bg-yellow-500/10 text-yellow-600 dark:text-yellow-400 border border-yellow-500/20 flex items-center gap-1">
-                                                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
-                                                            ${bringer.fellowship_name}
-                                                        </span>
-                                                            ` : ''}
+                                                            <span class="px-2 py-0.5 rounded text-[9px] uppercase font-bold bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20">
+                                                                ${bringer.retention_percentage || 0}% Retention
+                                                            </span>
                                                         </div>
-                                                        <div class="flex flex-wrap items-center gap-2 mt-2">
-                                                        <span class="px-2 py-0.5 rounded text-[9px] uppercase font-bold bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-white/10">
-                                                            ${bringer.first_timers_count || 0} First Timers
-                                                        </span>
-                                                        <span class="px-2 py-0.5 rounded text-[9px] uppercase font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
-                                                            ${bringer.retained_members_count || 0} Retained
-                                                        </span>
-                                                        <span class="px-2 py-0.5 rounded text-[9px] uppercase font-bold bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20">
-                                                            ${bringer.retention_percentage || 0}% Retention
-                                                        </span>
+                                                        </div>
                                                     </div>
-                                                    </div>
+                                                    <div class="flex flex-col items-end justify-center min-w-[80px]">
+                                                    <span class="text-[9px] text-slate-500 font-bold uppercase tracking-widest mb-1">TOTAL SOULS</span>
+                                                    <span class="text-xl font-black text-slate-900 dark:text-white leading-none">${totalSouls}</span>
                                                 </div>
-                                                <div class="flex flex-col items-end justify-center min-w-[80px]">
-                                                <span class="text-[9px] text-slate-500 font-bold uppercase tracking-widest mb-1">TOTAL SOULS</span>
-                                                <span class="text-xl font-black text-slate-900 dark:text-white leading-none">${totalSouls}</span>
-                                            </div>
-                                            `;
+                                                `;
                         list.appendChild(item);
                     });
                 } else {

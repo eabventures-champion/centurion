@@ -18,7 +18,14 @@ class StoreChurchRequest extends FormRequest
     {
         return [
             'church_group_id' => 'required|exists:church_groups,id',
-            'name' => 'required|string|max:255',
+            'name' => [
+                'required',
+                'string',
+                'max:255',
+                \Illuminate\Validation\Rule::exists('local_assemblies', 'name')->where(function ($query) {
+                    $query->where('church_group_id', $this->church_group_id);
+                }),
+            ],
             'title' => 'required|in:Bro,Sis,Pastor,Dcn,Dcns,Mr,Mrs',
             'leader_name' => 'required|string|max:255',
             'leader_contact' => ['required', 'string', new \App\Rules\UniqueContact()],

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreChurchRequest;
 use App\Models\Church;
+use App\Models\LocalAssembly;
 use App\Models\ChurchCategory;
 use App\Models\ChurchGroup;
 use App\Services\ChurchService;
@@ -25,9 +26,11 @@ class ChurchController extends Controller
         // Only allow groups from 'Other churches' category for church creation
         $groups = \App\Models\ChurchGroup::whereHas('churchCategory', function ($q) {
             $q->where('name', 'OTHER CHURCHES');
-        })->get();
+        })->whereNotIn('group_name', ['LAA', 'AVENOR'])->get();
 
-        return view('churches.index', compact('churches', 'groupedChurches', 'groups'));
+        $assemblies = \App\Models\LocalAssembly::orderBy('name')->get();
+
+        return view('churches.index', compact('churches', 'groupedChurches', 'groups', 'assemblies'));
     }
 
     public function store(StoreChurchRequest $request)
@@ -44,7 +47,7 @@ class ChurchController extends Controller
     {
         $groups = ChurchGroup::whereHas('churchCategory', function ($query) {
             $query->where('name', 'OTHER CHURCHES');
-        })->get();
+        })->whereNotIn('group_name', ['LAA', 'AVENOR'])->get();
         return view('churches.edit', compact('church', 'groups'));
     }
 
@@ -61,7 +64,7 @@ class ChurchController extends Controller
     {
         $validated = $request->validate([
             'church_group_id' => 'required|exists:church_groups,id',
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:255|exists:local_assemblies,name',
             'title' => 'required|in:Bro,Sis,Pastor,Dcn,Dcns,Mr,Mrs',
             'leader_name' => 'required|string|max:255',
             'leader_contact' => 'required|string|unique:churches,leader_contact,' . $church->id,

@@ -26,4 +26,9 @@ class ChurchGroup extends Model
     {
         return $this->hasMany(Pcf::class);
     }
+
+    public function localAssemblies(): HasMany
+    {
+        return $this->hasMany(LocalAssembly::class);
+    }
 }

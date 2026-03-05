@@ -236,8 +236,10 @@
 
                         <div>
                             <x-input-label for="modal_name" :value="__('Church Name')" />
-                            <x-text-input type="text" name="name" id="modal_name" placeholder="e.g. CE Atomic" required
-                                value="{{ old('name') }}" class="block w-full" />
+                            <select name="name" id="modal_name" required
+                                class="block w-full bg-slate-50 dark:bg-slate-950/50 border-slate-200 dark:border-white/10 text-slate-900 dark:text-white focus:border-indigo-500 focus:ring-indigo-500 rounded-xl shadow-sm transition-all duration-300 py-3 px-4">
+                                <option value="">Select Church</option>
+                            </select>
                             <x-input-error :messages="$errors->get('name')" class="mt-2" />
                         </div>
 
@@ -517,6 +519,41 @@
         }, 500);
 
         modalContactInput.addEventListener('input', (e) => checkContact(e.target.value));
+
+        // Dependent Dropdown for Church names in Modal
+        const modalGroupSelect = document.getElementById('modal_church_group_id');
+        const modalChurchSelect = document.getElementById('modal_name');
+        const assemblies = @json($assemblies);
+        const oldChurchName = "{{ old('name') }}";
+
+        function filterModalChurches() {
+            const selectedGroupId = modalGroupSelect.value;
+            const filtered = assemblies.filter(a => a.church_group_id == selectedGroupId);
+
+            // Save selected value if any
+            const currentValue = modalChurchSelect.value || oldChurchName;
+
+            // Clear current options
+            modalChurchSelect.innerHTML = '<option value="">Select Church</option>';
+
+            filtered.forEach(a => {
+                const opt = document.createElement('option');
+                opt.value = a.name;
+                opt.textContent = a.name;
+                if (a.name === currentValue) {
+                    opt.selected = true;
+                }
+                modalChurchSelect.appendChild(opt);
+            });
+        }
+
+        if (modalGroupSelect && modalChurchSelect) {
+            modalGroupSelect.addEventListener('change', filterModalChurches);
+            // Initial filter if group is already selected
+            if (modalGroupSelect.value) {
+                filterModalChurches();
+            }
+        }
 
         // Auto-open modal if there are validation errors
         @if($errors->any())

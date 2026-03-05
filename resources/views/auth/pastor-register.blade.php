@@ -50,9 +50,10 @@
                     <label for="church_name"
                         class="block text-[11px] font-black text-slate-500 uppercase tracking-[2px] mb-3 ml-1">Name of
                         Church</label>
-                    <input type="text" name="church_name" id="church_name" placeholder="e.g. CE Atomic" required
-                        value="{{ old('church_name') }}"
+                    <select name="church_name" id="church_name" required
                         class="block w-full bg-slate-950/50 border-white/5 text-white focus:border-indigo-500 focus:ring-indigo-500 rounded-2xl py-4 transition-all sm:text-sm shadow-inner group-hover:border-white/10">
+                        <option value="">Select Church</option>
+                    </select>
                     <x-input-error :messages="$errors->get('church_name')" class="mt-2" />
                 </div>
 
@@ -357,6 +358,38 @@
                 submitBtn.disabled = false;
                 submitBtn.classList.remove('opacity-50', 'cursor-not-allowed');
             });
+        }
+
+        // Dependent Dropdown for Church names
+        const groupSelect = document.getElementById('church_group_id');
+        const churchSelect = document.getElementById('church_name');
+        const assemblies = @json($assemblies);
+        const oldChurchName = "{{ old('church_name') }}";
+
+        function filterChurches() {
+            const selectedGroupId = groupSelect.value;
+            const filtered = assemblies.filter(a => a.church_group_id == selectedGroupId);
+
+            // Clear current options
+            churchSelect.innerHTML = '<option value="">Select Church</option>';
+
+            filtered.forEach(a => {
+                const opt = document.createElement('option');
+                opt.value = a.name;
+                opt.textContent = a.name;
+                if (a.name === oldChurchName) {
+                    opt.selected = true;
+                }
+                churchSelect.appendChild(opt);
+            });
+        }
+
+        if (groupSelect && churchSelect) {
+            groupSelect.addEventListener('change', filterChurches);
+            // Initial filter if group is already selected (e.g. after validation error)
+            if (groupSelect.value) {
+                filterChurches();
+            }
         }
     </script>
 </x-guest-layout>

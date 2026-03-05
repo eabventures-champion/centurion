@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Church;
+use App\Models\LocalAssembly;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -22,9 +24,11 @@ class PastorRegistrationController extends Controller
     {
         $groups = \App\Models\ChurchGroup::whereHas('churchCategory', function ($q) {
             $q->where('name', 'OTHER CHURCHES');
-        })->get();
+        })->whereNotIn('group_name', ['LAA', 'AVENOR'])->get();
 
-        return view('auth.pastor-register', compact('groups'));
+        $assemblies = \App\Models\LocalAssembly::orderBy('name')->get();
+
+        return view('auth.pastor-register', compact('groups', 'assemblies'));
     }
 
     /**
@@ -48,9 +52,17 @@ class PastorRegistrationController extends Controller
 
             // Church Fields
             'church_group_id' => ['required', 'exists:church_groups,id'],
-            'church_name' => ['required', 'string', 'max:255', 'unique:churches,name'],
-            'venue' => ['nullable', 'string', 'max:255'],
-            'location' => ['nullable', 'string', 'max:255'],
+            'church_name' => [
+                'required',
+                'string',
+                'max:255',
+                \Illuminate\Validation\Rule::exists('local_assemblies', 'name')->where(function ($query) use ($request) {
+                    $query->where('church_group_id', $request->church_group_id);
+                }),
+                'unique:churches,name'
+            ],
+            'venue' => ['required', 'string', 'max:255'],
+            'location' => ['required', 'string', 'max:255'],
         ]);
 
         $profilePicturePath = null;

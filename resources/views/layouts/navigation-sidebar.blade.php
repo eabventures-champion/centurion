@@ -131,9 +131,17 @@
                 <span
                     class="px-1.5 py-0.5 rounded-md text-[9px] font-black bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 sidebar-badge">{{ $groupsCount }}</span>
             </a>
+            <a href="{{ route('local-assemblies.index') }}"
+                class="nav-link-premium {{ request()->routeIs('local-assemblies.*') ? 'active' : '' }} !py-2 !px-3 group/nav flex items-center justify-between">
+                <span class="text-xs text-slate-400 group-hover/nav:text-white transition-colors">Church names</span>
+                <span
+                    class="px-1.5 py-0.5 rounded-md text-[8px] font-black bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 uppercase tracking-tighter">
+                    NEW
+                </span>
+            </a>
             <a href="{{ route('churches.index') }}"
                 class="nav-link-premium {{ request()->routeIs('churches.*') ? 'active' : '' }} !py-2 !px-3 group/nav flex items-center justify-between">
-                <span class="text-xs text-slate-400 group-hover/nav:text-white transition-colors">Churches</span>
+                <span class="text-xs text-slate-400 group-hover/nav:text-white transition-colors">Create Church</span>
                 <span
                     class="px-1.5 py-0.5 rounded-md text-[9px] font-black bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 sidebar-badge">{{ $churchesCount }}</span>
             </a>
@@ -149,7 +157,6 @@
                 <span class="text-xs text-slate-400 group-hover/nav:text-white transition-colors">PCFs</span>
                 <span
                     class="px-1.5 py-0.5 rounded-md text-[9px] font-black bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 sidebar-badge">{{ $pcfsCount }}</span>
-            </a>
             </a>
         </div>
 
@@ -170,10 +177,18 @@
                 <span
                     class="px-1.5 py-0.5 rounded-md text-[9px] font-black bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 sidebar-badge">{{ $groupsCount }}</span>
             </a>
-            <a href="{{ route('churches.index') }}" class="sidebar-flyout-item flex items-center justify-between">
-                <span>Churches</span>
+            <a href="{{ route('local-assemblies.index') }}" class="sidebar-flyout-item flex items-center justify-between">
+                <span>Church names</span>
                 <span
-                    class="px-1.5 py-0.5 rounded-md text-[9px] font-black bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 sidebar-badge">{{ $churchesCount }}</span>
+                    class="px-1.5 py-0.5 rounded-md text-[8px] font-black bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 uppercase tracking-tighter">
+                    NEW
+                </span>
+            </a>
+            <a href="{{ route('churches.index') }}" class="sidebar-flyout-item flex items-center justify-between">
+                <span>Create Church</span>
+                <span
+                    class="px-1.5 py-0.5 rounded-md text-[9px] font-black bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 sidebar-badge">{{ $churchesCount }}
+                </span>
             </a>
             <a href="{{ route('credentials.index') }}" class="sidebar-flyout-item flex items-center justify-between">
                 <span>Credentials</span>

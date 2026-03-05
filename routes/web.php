@@ -16,6 +16,7 @@ use App\Http\Controllers\RetainedMemberController;
 use App\Http\Controllers\Admin\HomepageSettingsController;
 use App\Http\Controllers\ReportingController;
 use App\Http\Controllers\CredentialsController;
+use App\Http\Controllers\LocalAssemblyController;
 use App\Models\HomepageSetting;
 use Illuminate\Support\Facades\Route;
 
@@ -63,6 +64,8 @@ Route::middleware('auth')->group(function () {
         Route::get('credentials', [CredentialsController::class, 'index'])->name('credentials.index');
         Route::get('credentials/challenge', [CredentialsController::class, 'showChallenge'])->name('credentials.challenge');
         Route::post('credentials/verify', [CredentialsController::class, 'verify'])->name('credentials.verify');
+
+        Route::resource('local-assemblies', LocalAssemblyController::class)->only(['index', 'store', 'update', 'destroy']);
 
         // Trash Management
         Route::get('trash', [\App\Http\Controllers\TrashController::class, 'index'])->name('trash.index');
