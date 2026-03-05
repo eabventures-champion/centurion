@@ -16,8 +16,9 @@
         {{-- CHURCH INFORMATION SECTION --}}
         <div
             class="p-6 md:p-10 rounded-3xl bg-white/5 border border-white/10 shadow-2xl backdrop-blur-xl relative overflow-hidden group">
-            <div class="absolute top-2 right-2 md:top-4 md:right-6 opacity-10 group-hover:opacity-20 transition-opacity">
-                <svg class="w-14 h-14 md:w-24 md:h-24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div
+                class="absolute top-2 right-2 md:top-6 md:right-8 opacity-10 group-hover:opacity-20 transition-opacity pointer-events-none">
+                <svg class="w-10 h-10 md:w-24 md:h-24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                         d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                 </svg>
@@ -60,7 +61,7 @@
                         <label for="venue"
                             class="block text-[11px] font-black text-slate-500 uppercase tracking-[2px] mb-3 ml-1">Church
                             Venue</label>
-                        <input type="text" name="venue" id="venue" placeholder="e.g. Marriott Hotel"
+                        <input type="text" name="venue" id="venue" placeholder="e.g. Marriott Hotel" required
                             value="{{ old('venue') }}"
                             class="block w-full bg-slate-950/50 border-white/5 text-white focus:border-indigo-500 focus:ring-indigo-500 rounded-2xl py-4 transition-all sm:text-sm shadow-inner group-hover:border-white/10">
                         <x-input-error :messages="$errors->get('venue')" class="mt-2" />
@@ -69,7 +70,7 @@
                         <label for="location"
                             class="block text-[11px] font-black text-slate-500 uppercase tracking-[2px] mb-3 ml-1">Location
                             (City/Area)</label>
-                        <input type="text" name="location" id="location" placeholder="e.g. East Legon"
+                        <input type="text" name="location" id="location" placeholder="e.g. East Legon" required
                             value="{{ old('location') }}"
                             class="block w-full bg-slate-950/50 border-white/5 text-white focus:border-indigo-500 focus:ring-indigo-500 rounded-2xl py-4 transition-all sm:text-sm shadow-inner group-hover:border-white/10">
                         <x-input-error :messages="$errors->get('location')" class="mt-2" />
@@ -81,8 +82,9 @@
         {{-- PASTOR INFORMATION SECTION --}}
         <div
             class="p-6 md:p-10 rounded-3xl bg-white/5 border border-white/10 shadow-2xl backdrop-blur-xl relative overflow-hidden group">
-            <div class="absolute top-2 right-2 md:top-4 md:right-6 opacity-10 group-hover:opacity-20 transition-opacity">
-                <svg class="w-14 h-14 md:w-24 md:h-24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div
+                class="absolute top-2 right-2 md:top-6 md:right-8 opacity-10 group-hover:opacity-20 transition-opacity pointer-events-none">
+                <svg class="w-10 h-10 md:w-24 md:h-24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                         d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                 </svg>
@@ -128,7 +130,7 @@
                                 </svg>
                             </div>
                         </template>
-                        <input type="file" name="profile_picture" id="profile_picture" accept="image/*"
+                        <input type="file" name="profile_picture" id="profile_picture" accept="image/*" required
                             @change="fileChosen" class="absolute inset-0 opacity-0 cursor-pointer z-10">
                     </div>
                     <div class="flex-1">
@@ -193,7 +195,7 @@
                     <div>
                         <label for="gender"
                             class="block text-[11px] font-black text-slate-500 uppercase tracking-[2px] mb-3 ml-1">Gender</label>
-                        <select name="gender" id="gender"
+                        <select name="gender" id="gender" required
                             class="block w-full bg-slate-950/50 border-white/5 text-white focus:border-indigo-500 focus:ring-indigo-500 rounded-2xl py-4 transition-all sm:text-sm">
                             <option value="">Select</option>
                             <option value="Male" {{ old('gender') == 'Male' ? 'selected' : '' }}>Male</option>
@@ -227,7 +229,7 @@
                         <label for="marital_status"
                             class="block text-[11px] font-black text-slate-500 uppercase tracking-[2px] mb-3 ml-1">Marital
                             Status</label>
-                        <select name="marital_status" id="marital_status"
+                        <select name="marital_status" id="marital_status" required
                             class="block w-full bg-slate-950/50 border-white/5 text-white focus:border-indigo-500 focus:ring-indigo-500 rounded-2xl py-4 transition-all sm:text-sm">
                             <option value="">Select</option>
                             @foreach(['Single', 'Married'] as $status)
@@ -240,7 +242,7 @@
                     <div>
                         <label for="occupation"
                             class="block text-[11px] font-black text-slate-500 uppercase tracking-[2px] mb-3 ml-1">Occupation</label>
-                        <input type="text" name="occupation" id="occupation" placeholder="e.g. Professional"
+                        <input type="text" name="occupation" id="occupation" placeholder="e.g. Professional" required
                             value="{{ old('occupation') }}"
                             class="block w-full bg-slate-950/50 border-white/5 text-white focus:border-indigo-500 focus:ring-indigo-500 rounded-2xl py-4 transition-all sm:text-sm">
                     </div>
