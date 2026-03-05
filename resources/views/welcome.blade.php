@@ -172,13 +172,13 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full text-center">
                 <div class="max-w-4xl mx-auto">
                     <span
-                        class="inline-block px-4 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-black tracking-[3px] uppercase mb-8">
+                        class="inline-block px-4 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-black tracking-[3px] uppercase mb-2">
                         {{ $settings->hero_subtext ?? '100 souls per member' }}
                     </span>
 
-                    <h1 class="text-4xl sm:text-6xl md:text-8xl font-black mb-8 tracking-tighter leading-[0.9]">
-                        {{ $settings->hero_heading ?? 'CENTURION CAMPAIGN' }}
-                    </h1>
+                    <div class="flex justify-center mb-2">
+                        <x-application-logo class="w-64 h-64 sm:w-80 sm:h-80 md:w-[450px] md:h-[450px]" />
+                    </div>
 
                     <p
                         class="text-base sm:text-lg md:text-2xl text-slate-400 font-light leading-relaxed mb-12 max-w-2xl mx-auto px-4">

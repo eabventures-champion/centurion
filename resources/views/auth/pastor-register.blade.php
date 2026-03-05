@@ -1,8 +1,7 @@
 <x-guest-layout>
     <div class="mb-10 text-center relative">
-        <div
-            class="inline-block px-4 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-[10px] font-black tracking-[3px] uppercase mb-4">
-            Centurion Campaign
+        <div class="flex justify-center mb-6">
+            <x-application-logo class="w-32 h-32" />
         </div>
         <h2 class="text-4xl font-black text-white tracking-tighter leading-none">JOIN THE MOVEMENT</h2>
         <p class="text-sm text-slate-400 mt-4 max-w-xs mx-auto font-medium">
@@ -192,8 +191,8 @@
                     </div>
                 </div>
 
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                    <div>
+                <div class="grid grid-cols-5 md:grid-cols-4 gap-6">
+                    <div class="col-span-2 md:col-span-1">
                         <label for="gender"
                             class="block text-[11px] font-black text-slate-500 uppercase tracking-[2px] mb-3 ml-1">Gender</label>
                         <select name="gender" id="gender" required
@@ -203,20 +202,20 @@
                             <option value="Female" {{ old('gender') == 'Female' ? 'selected' : '' }}>Female</option>
                         </select>
                     </div>
-                    <div class="md:col-span-2">
+                    <div class="col-span-3 md:col-span-2">
                         <label
                             class="block text-[11px] font-black text-slate-500 uppercase tracking-[2px] mb-3 ml-1">Birth
                             Day (Day/Month)</label>
-                        <div class="grid grid-cols-2 gap-3">
+                        <div class="grid grid-cols-5 gap-2">
                             <select name="birth_day_day" required
-                                class="block w-full bg-slate-950/50 border-white/5 text-white focus:border-indigo-500 focus:ring-indigo-500 rounded-2xl py-4 transition-all sm:text-sm">
+                                class="col-span-2 block w-full bg-slate-950/50 border-white/5 text-white focus:border-indigo-500 focus:ring-indigo-500 rounded-2xl py-4 transition-all sm:text-sm">
                                 <option value="">Day</option>
                                 @for($i = 1; $i <= 31; $i++)
                                     <option value="{{ sprintf('%02d', $i) }}" {{ old('birth_day_day') == sprintf('%02d', $i) ? 'selected' : '' }}>{{ $i }}</option>
                                 @endfor
                             </select>
                             <select name="birth_day_month" required
-                                class="block w-full bg-slate-950/50 border-white/5 text-white focus:border-indigo-500 focus:ring-indigo-500 rounded-2xl py-4 transition-all sm:text-sm">
+                                class="col-span-3 block w-full bg-slate-950/50 border-white/5 text-white focus:border-indigo-500 focus:ring-indigo-500 rounded-2xl py-4 transition-all sm:text-sm">
                                 <option value="">Month</option>
                                 @foreach(['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'] as $index => $month)
                                     <option value="{{ sprintf('%02d', $index + 1) }}" {{ old('birth_day_month') == sprintf('%02d', $index + 1) ? 'selected' : '' }}>
@@ -226,7 +225,7 @@
                             </select>
                         </div>
                     </div>
-                    <div>
+                    <div class="col-span-2 md:col-span-1">
                         <label for="marital_status"
                             class="block text-[11px] font-black text-slate-500 uppercase tracking-[2px] mb-3 ml-1">Marital
                             Status</label>
@@ -240,7 +239,7 @@
                             @endforeach
                         </select>
                     </div>
-                    <div>
+                    <div class="col-span-3 md:col-span-1">
                         <label for="occupation"
                             class="block text-[11px] font-black text-slate-500 uppercase tracking-[2px] mb-3 ml-1">Occupation</label>
                         <input type="text" name="occupation" id="occupation" placeholder="e.g. Professional" required

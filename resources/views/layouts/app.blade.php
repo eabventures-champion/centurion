@@ -78,8 +78,7 @@
                 <div class="border-b border-slate-800/50 bg-slate-900/50 backdrop-blur-xl z-20 transition-all duration-300"
                     :class="sidebarMinimized ? 'p-4' : 'p-6'">
                     <div class="flex items-center gap-3 overflow-hidden whitespace-nowrap">
-                        <div
-                            class="shrink-0 w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-500/20 p-2 text-white">
+                        <div class="shrink-0 w-16 h-16 flex items-center justify-center transition-all duration-300">
                             <x-application-logo class="w-full h-full" />
                         </div>
                         <div x-show="!sidebarMinimized" x-transition:enter="transition ease-out duration-300"
@@ -169,8 +168,7 @@
                 <div class="p-6 border-b border-slate-800/50 bg-slate-900/50 backdrop-blur-xl">
                     <div class="flex items-center justify-between">
                         <div class="flex items-center gap-3">
-                            <div
-                                class="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center p-1.5 text-white">
+                            <div class="w-12 h-12 flex items-center justify-center p-1">
                                 <x-application-logo class="w-full h-full" />
                             </div>
                             <span class="font-bold text-sm text-white tracking-tight">CENTURION</span>
