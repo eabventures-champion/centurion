@@ -60,7 +60,7 @@
                         <label for="venue"
                             class="block text-[11px] font-black text-slate-500 uppercase tracking-[2px] mb-3 ml-1">Church
                             Venue</label>
-                        <input type="text" name="venue" id="venue" placeholder="e.g. 123 Faith Street"
+                        <input type="text" name="venue" id="venue" placeholder="e.g. Marriott Hotel"
                             value="{{ old('venue') }}"
                             class="block w-full bg-slate-950/50 border-white/5 text-white focus:border-indigo-500 focus:ring-indigo-500 rounded-2xl py-4 transition-all sm:text-sm shadow-inner group-hover:border-white/10">
                         <x-input-error :messages="$errors->get('venue')" class="mt-2" />
@@ -225,11 +225,11 @@
                     </div>
                     <div>
                         <label for="marital_status"
-                            class="block text-[11px] font-black text-slate-500 uppercase tracking-[2px] mb-3 ml-1">Status</label>
+                            class="block text-[11px] font-black text-slate-500 uppercase tracking-[2px] mb-3 ml-1">Marital Status</label>
                         <select name="marital_status" id="marital_status"
                             class="block w-full bg-slate-950/50 border-white/5 text-white focus:border-indigo-500 focus:ring-indigo-500 rounded-2xl py-4 transition-all sm:text-sm">
                             <option value="">Select</option>
-                            @foreach(['Single', 'Married', 'Divorced', 'Widowed'] as $status)
+                            @foreach(['Single', 'Married'] as $status)
                                 <option value="{{ $status }}" {{ old('marital_status') == $status ? 'selected' : '' }}>
                                     {{ $status }}
                                 </option>

@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-app-layout :show-back="true">
     <x-slot name="header">
         <div class="flex items-center gap-3">
             <a href="{{ route('church-groups.index') }}" class="p-2 text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors">

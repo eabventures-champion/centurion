@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-app-layout :show-back="true">
     <x-slot name="header">
         {{ $entity->name }} ({{ $type }}) - {{ __('Attendance') }}
     </x-slot>
@@ -183,7 +183,7 @@
                                                                             onclick="toggleAttendance({{ $ft->id }}, '{{ $dateStr }}')"
                                                                             id="cell-{{ $ft->id }}-{{ $dateStr }}"
                                                                             class="inline-flex items-center justify-center p-2 rounded-lg transition-all active:scale-90
-                                                                                                                                                                                                                                                                                                                     {{ $isInitial ? 'bg-emerald-500/20 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 cursor-default' :
+                                                                                                                                                                                                                                                                                                                                                     {{ $isInitial ? 'bg-emerald-500/20 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 cursor-default' :
                                             ($isPresent ? 'bg-indigo-600 border border-indigo-400 text-white shadow-lg shadow-indigo-600/20' :
                                                 'bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/5 text-slate-400 dark:text-slate-600 hover:border-slate-400 dark:hover:border-slate-500 hover:text-slate-600 dark:hover:text-slate-400') }}">
                                                                             @if($isPresent)

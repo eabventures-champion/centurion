@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-app-layout :show-back="true">
     <x-slot name="header">
         {{ __('Edit First Timer: ') }} {{ $firstTimer->full_name }}
     </x-slot>

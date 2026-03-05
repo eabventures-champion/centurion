@@ -238,14 +238,16 @@
                                 d="M4 6h16M4 12h16m-7 6h7" />
                         </svg>
                     </button>
-                    <button onclick="history.back()"
-                        class="text-slate-500 hover:text-white transition-all hover:bg-white/5 rounded-xl p-2 active:scale-90"
-                        title="Go Back">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
-                                d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                        </svg>
-                    </button>
+                    @if($showBack)
+                        <button onclick="history.back()"
+                            class="text-slate-500 hover:text-white transition-all hover:bg-white/5 rounded-xl p-2 active:scale-90"
+                            title="Go Back">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                    d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                            </svg>
+                        </button>
+                    @endif
                     @isset($header)
                         <div class="text-indigo-400 font-black uppercase tracking-[3px] text-xs">
                             {{ $header }}

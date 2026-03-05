@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-app-layout :show-back="true">
     <x-slot name="header">
         {{ __('Edit User') }}
     </x-slot>
