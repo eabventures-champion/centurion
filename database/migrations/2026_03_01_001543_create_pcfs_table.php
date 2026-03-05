@@ -1,0 +1,32 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration {
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('pcfs', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('church_group_id')->constrained()->onDelete('cascade');
+            $table->string('name');
+            $table->enum('title', ['Bro', 'Sis', 'Pastor', 'Dcn', 'Dcns', 'Mr', 'Mrs']);
+            $table->string('leader_name');
+            $table->string('leader_contact')->unique();
+            $table->unsignedBigInteger('official_id');
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('pcfs');
+    }
+};
