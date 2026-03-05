@@ -101,8 +101,8 @@
                                 class="block w-full bg-slate-50 dark:bg-slate-950/50 border-slate-200 dark:border-white/10 text-slate-900 dark:text-white focus:border-indigo-500 focus:ring-indigo-500 rounded-xl shadow-sm transition-all duration-300 py-3 px-4 shadow-sm transition-all cursor-pointer">
                                 <option value="Single" {{ old('marital_status', $firstTimer->marital_status) == 'Single' ? 'selected' : '' }}>Single</option>
                                 <option value="Married" {{ old('marital_status', $firstTimer->marital_status) == 'Married' ? 'selected' : '' }}>Married</option>
-                                <option value="Widowed" {{ old('marital_status', $firstTimer->marital_status) == 'Widowed' ? 'selected' : '' }}>Widowed</option>
-                                <option value="Divorced" {{ old('marital_status', $firstTimer->marital_status) == 'Divorced' ? 'selected' : '' }}>Divorced</option>
+                                <!-- <option value="Widowed" {{ old('marital_status', $firstTimer->marital_status) == 'Widowed' ? 'selected' : '' }}>Widowed</option> -->
+                                <!-- <option value="Divorced" {{ old('marital_status', $firstTimer->marital_status) == 'Divorced' ? 'selected' : '' }}>Divorced</option> -->
                             </select>
                             <x-input-error :messages="$errors->get('marital_status')" class="mt-2" />
                         </div>

@@ -117,10 +117,11 @@
                                 </option>
                                 <option value="Married" {{ old('marital_status') == 'Married' ? 'selected' : '' }}>Married
                                 </option>
-                                <option value="Widowed" {{ old('marital_status') == 'Widowed' ? 'selected' : '' }}>Widowed
+                                <!-- <option value="Widowed" {{ old('marital_status') == 'Widowed' ? 'selected' : '' }}>Widowed
                                 </option>
                                 <option value="Divorced" {{ old('marital_status') == 'Divorced' ? 'selected' : '' }}>
-                                    Divorced</option>
+                                    Divorced
+                                </option> -->
                             </select>
                             <x-input-error :messages="$errors->get('marital_status')" class="mt-2" />
                         </div>

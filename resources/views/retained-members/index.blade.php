@@ -802,8 +802,8 @@
                                         class="w-full bg-slate-50 dark:bg-slate-950/50 border-slate-200 dark:border-white/10 focus:border-indigo-500/50 focus:ring-4 focus:ring-indigo-500/10 rounded-xl text-slate-900 dark:text-white py-3 px-4 transition-all appearance-none cursor-pointer">
                                         <option value="Single">Single</option>
                                         <option value="Married">Married</option>
-                                        <option value="Widowed">Widowed</option>
-                                        <option value="Divorced">Divorced</option>
+                                        <!-- <option value="Widowed">Widowed</option>
+                                        <option value="Divorced">Divorced</option> -->
                                     </select>
                                 </div>
 

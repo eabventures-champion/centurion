@@ -254,7 +254,7 @@
                                 <select name="marital_status" id="modal_marital_status" required
                                     class="block w-full bg-slate-50 dark:bg-slate-950/50 border-slate-200 dark:border-white/10 text-slate-900 dark:text-white focus:border-indigo-500 focus:ring-indigo-500 rounded-xl shadow-sm transition-all duration-300 py-3 px-4">
                                     <option value="">Select Status</option>
-                                    @foreach(['Single', 'Married', 'Divorced', 'Widowed'] as $status)
+                                    @foreach(['Single', 'Married'] as $status)
                                         <option value="{{ $status }}" {{ old('marital_status') == $status ? 'selected' : '' }}>{{ $status }}</option>
                                     @endforeach
                                 </select>
