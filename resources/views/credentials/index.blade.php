@@ -14,8 +14,8 @@
                    email.toLowerCase().includes(s);
         }
     }">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="glass-card p-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="glass-card p-4 sm:p-8">
                 <div class="mb-8 flex flex-col md:flex-row md:items-center justify-between gap-6">
                     <div>
                         <h3 class="text-lg font-bold text-white tracking-tight text-emerald-400">System Credentials</h3>
@@ -39,8 +39,8 @@
                 </div>
 
                 <div class="overflow-hidden rounded-2xl border border-white/5 bg-slate-900/50" x-cloak>
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left border-collapse">
+                    <div class="overflow-x-auto overflow-y-hidden w-full max-w-full">
+                        <table class="w-full text-left border-collapse min-w-[700px] sm:min-w-[800px]">
                             <thead>
                                 <tr>
                                     <th
