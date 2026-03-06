@@ -344,10 +344,15 @@
                             @foreach($celebrants as $person)
                                 <div
                                     class="flex items-center justify-between p-3 bg-slate-50 dark:bg-white/5 rounded-xl border border-slate-200 dark:border-white/5 hover:border-indigo-500/30 transition-all">
+                                    <div class="flex flex-col">
+                                        <span class="text-sm font-medium text-slate-700 dark:text-slate-200">{{ $person->full_name }}</span>
+                                        <span class="text-xs text-slate-500 dark:text-slate-400 mt-0.5 flex items-center gap-1">
+                                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                                            {{ $person->primary_contact ?? 'No Contact' }}
+                                        </span>
+                                    </div>
                                     <span
-                                        class="text-sm font-medium text-slate-700 dark:text-slate-200">{{ $person->full_name }}</span>
-                                    <span
-                                        class="text-[10px] px-2 py-1 bg-indigo-500/10 text-indigo-600 dark:text-indigo-300 rounded-md font-bold">
+                                        class="text-[10px] px-2 py-1 bg-indigo-500/10 text-indigo-600 dark:text-indigo-300 rounded-md font-bold shrink-0 ml-2">
                                         {{ preg_match('/^\d{2}-\d{2}$/', $person->date_of_birth) ? \Carbon\Carbon::createFromFormat('d-m', $person->date_of_birth)->format('M d') : \Carbon\Carbon::parse($person->date_of_birth)->format('M d') }}
                                     </span>
                                 </div>

@@ -125,14 +125,21 @@ class DashboardController extends Controller
             $stats['gender_dist_other'] = $getGenderInfo($otherPcfIds, $otherChurchIds);
             $stats['is_super_admin'] = true;
 
-            // Birthday reminders: this month + next 15 days
+            // Birthday reminders: this month + first 15 days of next month
             $birthdayDates = collect();
             $today = now();
-            $endDate = now()->addDays(15);
-            $cursor = $today->copy()->startOfMonth();
-            while ($cursor->lte($endDate)) {
-                $birthdayDates->push($cursor->format('d-m'));
-                $cursor->addDay();
+            $currentMonth = $today->format('m');
+            $nextMonth = $today->copy()->addMonth()->format('m');
+
+            // Add all days of current month
+            for ($i = 1; $i <= 31; $i++) {
+                $day = str_pad($i, 2, '0', STR_PAD_LEFT);
+                $birthdayDates->push($day . '-' . $currentMonth);
+            }
+            // Add first 15 days of next month
+            for ($i = 1; $i <= 15; $i++) {
+                $day = str_pad($i, 2, '0', STR_PAD_LEFT);
+                $birthdayDates->push($day . '-' . $nextMonth);
             }
 
             $stats['birthday_reminders'] = FirstTimer::with(['church', 'pcf'])
@@ -231,14 +238,21 @@ class DashboardController extends Controller
 
                 $stats['church_name'] = $church->name;
 
-                // Birthday reminders: this month + next 15 days
+                // Birthday reminders: this month + first 15 days of next month
                 $birthdayDates = collect();
                 $today = now();
-                $endDate = now()->addDays(15);
-                $cursor = $today->copy()->startOfMonth();
-                while ($cursor->lte($endDate)) {
-                    $birthdayDates->push($cursor->format('d-m'));
-                    $cursor->addDay();
+                $currentMonth = $today->format('m');
+                $nextMonth = $today->copy()->addMonth()->format('m');
+
+                // Add all days of current month
+                for ($i = 1; $i <= 31; $i++) {
+                    $day = str_pad($i, 2, '0', STR_PAD_LEFT);
+                    $birthdayDates->push($day . '-' . $currentMonth);
+                }
+                // Add first 15 days of next month
+                for ($i = 1; $i <= 15; $i++) {
+                    $day = str_pad($i, 2, '0', STR_PAD_LEFT);
+                    $birthdayDates->push($day . '-' . $nextMonth);
                 }
 
                 $stats['birthday_reminders'] = FirstTimer::with(['church', 'pcf'])->where(function ($q) use ($church, $pcfIds) {
