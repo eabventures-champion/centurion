@@ -483,56 +483,56 @@
                         const totalSouls = (bringer.first_timers_count || 0) + (bringer.retained_members_count || 0);
 
                         const item = document.createElement('div');
-                        item.className = 'flex items-center justify-between p-3.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/5 hover:border-indigo-500/30 transition-colors group';
+                        item.className = 'flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/5 hover:border-indigo-500/30 transition-colors group relative overflow-hidden';
                         item.innerHTML = `
-                                                <div class="flex items-center gap-4">
-                                                    <div class="w-10 h-10 rounded-full bg-slate-200 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 flex items-center justify-center text-slate-600 dark:text-slate-400 font-bold uppercase">
-                                                        ${bringer.name ? bringer.name.substring(0, 2) : 'UK'}
-                                                    </div>
-                                                    <div>
-                                                        <h4 class="text-sm font-bold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">${bringer.name || 'Unknown'}</h4>
-                                                        <div class="flex items-center gap-3 mt-1">
-                                                            <span class="text-[10px] text-slate-500 dark:text-slate-400 flex items-center gap-1 font-medium">
-                                                                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
-                                                                    ${bringer.contact || 'N/A'}
+                                                    <div class="flex items-start sm:items-center gap-3 sm:gap-4 w-full sm:flex-1 min-w-0">
+                                                        <div class="shrink-0 w-10 h-10 rounded-full bg-slate-200 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 flex items-center justify-center text-slate-600 dark:text-slate-400 font-bold uppercase mt-1 sm:mt-0">
+                                                            ${bringer.name ? bringer.name.substring(0, 2) : 'UK'}
+                                                        </div>
+                                                        <div class="min-w-0 flex-1">
+                                                            <h4 class="text-sm font-bold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors truncate pr-4">${bringer.name || 'Unknown'}</h4>
+                                                            <div class="flex flex-wrap items-center gap-x-3 gap-y-1.5 mt-1">
+                                                                <span class="text-[10px] text-slate-500 dark:text-slate-400 flex items-center gap-1 font-medium whitespace-nowrap">
+                                                                        <svg class="w-3 h-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                                                                        ${bringer.contact || 'N/A'}
+                                                                    </span>
+                                                                    ${bringer.senior_cell_name ? `
+                                                                    <span class="text-xs text-slate-400 flex items-center gap-1 whitespace-nowrap">
+                                                                        <svg class="w-3 h-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+                                                                        ${bringer.senior_cell_name}
+                                                                    </span>
+                                                                    ` : ''}
+                                                                    ${bringer.cell_name ? `
+                                                                    <span class="text-xs text-slate-400 flex items-center gap-1 whitespace-nowrap">
+                                                                        <svg class="w-3 h-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                                                                        ${bringer.cell_name}
+                                                                    </span>
+                                                                    ` : ''}
+                                                                    ${bringer.fellowship_name && bringer.fellowship_name !== 'Unassigned' ? `
+                                                                    <span class="px-2 py-0.5 rounded text-[9px] uppercase font-black bg-yellow-500/10 text-yellow-600 dark:text-yellow-400 border border-yellow-500/20 flex items-center gap-1 whitespace-nowrap">
+                                                                    <svg class="w-3 h-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+                                                                    ${bringer.fellowship_name}
                                                                 </span>
-                                                                ${bringer.senior_cell_name ? `
-                                                                <span class="text-xs text-slate-400 flex items-center gap-1">
-                                                                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
-                                                                    ${bringer.senior_cell_name}
+                                                                    ` : ''}
+                                                                </div>
+                                                                <div class="flex flex-wrap items-center gap-2 mt-2">
+                                                                <span class="px-2 py-0.5 rounded text-[9px] uppercase font-bold bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-white/10 whitespace-nowrap">
+                                                                    ${bringer.first_timers_count || 0} First Timers
                                                                 </span>
-                                                                ` : ''}
-                                                                ${bringer.cell_name ? `
-                                                                <span class="text-xs text-slate-400 flex items-center gap-1">
-                                                                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
-                                                                    ${bringer.cell_name}
+                                                                <span class="px-2 py-0.5 rounded text-[9px] uppercase font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 whitespace-nowrap">
+                                                                    ${bringer.retained_members_count || 0} Retained
                                                                 </span>
-                                                                ` : ''}
-                                                                ${bringer.fellowship_name && bringer.fellowship_name !== 'Unassigned' ? `
-                                                                <span class="px-2 py-0.5 rounded text-[9px] uppercase font-black bg-yellow-500/10 text-yellow-600 dark:text-yellow-400 border border-yellow-500/20 flex items-center gap-1">
-                                                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
-                                                                ${bringer.fellowship_name}
-                                                            </span>
-                                                                ` : ''}
+                                                                <span class="px-2 py-0.5 rounded text-[9px] uppercase font-bold bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20 whitespace-nowrap">
+                                                                    ${bringer.retention_percentage || 0}% Retention
+                                                                </span>
                                                             </div>
-                                                            <div class="flex flex-wrap items-center gap-2 mt-2">
-                                                            <span class="px-2 py-0.5 rounded text-[9px] uppercase font-bold bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-white/10">
-                                                                ${bringer.first_timers_count || 0} First Timers
-                                                            </span>
-                                                            <span class="px-2 py-0.5 rounded text-[9px] uppercase font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
-                                                                ${bringer.retained_members_count || 0} Retained
-                                                            </span>
-                                                            <span class="px-2 py-0.5 rounded text-[9px] uppercase font-bold bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20">
-                                                                ${bringer.retention_percentage || 0}% Retention
-                                                            </span>
+                                                            </div>
                                                         </div>
-                                                        </div>
+                                                        <div class="flex sm:flex-col items-center sm:items-end justify-between sm:justify-center w-full sm:w-auto min-w-[80px] pt-3 sm:pt-0 border-t sm:border-0 border-slate-200 dark:border-white/10 mt-1 sm:mt-0 shrink-0">
+                                                        <span class="text-[9px] text-slate-500 font-bold uppercase tracking-widest sm:mb-1">TOTAL SOULS</span>
+                                                        <span class="text-xl font-black text-slate-900 dark:text-white leading-none">${totalSouls}</span>
                                                     </div>
-                                                    <div class="flex flex-col items-end justify-center min-w-[80px]">
-                                                    <span class="text-[9px] text-slate-500 font-bold uppercase tracking-widest mb-1">TOTAL SOULS</span>
-                                                    <span class="text-xl font-black text-slate-900 dark:text-white leading-none">${totalSouls}</span>
-                                                </div>
-                                                `;
+                                                    `;
                         list.appendChild(item);
                     });
                 } else {
