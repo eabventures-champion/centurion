@@ -114,8 +114,9 @@
                         <div class="flex flex-wrap items-center gap-4">
                             <div
                                 class="flex flex-wrap items-center gap-4 p-2 rounded-2xl bg-white dark:bg-slate-950/50 border border-slate-200 dark:border-white/5 shadow-sm">
-                                <input type="date" id="custom_date" max="{{ now()->toDateString() }}"
-                                    class="bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-white/10 rounded-xl px-4 py-2 text-[10px] sm:text-xs font-bold text-slate-900 dark:text-white focus:ring-2 focus:ring-indigo-500 cursor-pointer w-full sm:w-auto min-w-[120px] shadow-sm appearance-none">
+                                <input type="text" placeholder="mm/dd/yyyy" onfocus="(this.type='date')" onblur="(this.type=this.value ? 'date' : 'text')"
+                                    id="custom_date" max="{{ now()->toDateString() }}"
+                                    class="bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-white/10 rounded-xl px-4 py-2.5 text-xs font-bold text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:ring-2 focus:ring-indigo-500 cursor-pointer w-full sm:w-auto min-w-[140px] shadow-sm">
                                 <button @click="markCustomDate()"
                                     class="px-4 py-2 w-full sm:w-auto bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-400 rounded-xl text-[10px] font-black uppercase tracking-widest border border-indigo-500/20 transition-all">
                                     + Add Date
