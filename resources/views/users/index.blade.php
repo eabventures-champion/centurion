@@ -4,7 +4,7 @@
     </x-slot>
 
     <div class="py-6">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <!-- Header Section -->
             <div class="mb-10 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
                 <div>
@@ -21,7 +21,7 @@
                 </div>
             </div>
 
-            <div class="glass-card p-8">
+            <div class="glass-card p-4 sm:p-8">
 
                 @if(session('success'))
                     <div
@@ -92,8 +92,8 @@
 
                 <div
                     class="overflow-hidden rounded-2xl border border-slate-200 dark:border-white/5 bg-slate-50 dark:bg-slate-900/50">
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left border-collapse">
+                    <div class="overflow-x-auto overflow-y-hidden w-full max-w-full">
+                        <table class="w-full text-left border-collapse min-w-[900px]">
                             <thead>
                                 <tr>
                                     <th
@@ -147,7 +147,7 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td class="px-6 py-4 hidden sm:table-cell">
+                                        <td class="px-6 py-4">
                                             <div class="text-xs text-slate-700 dark:text-slate-400 font-medium">
                                                 {{ $user->contact ?? 'N/A' }}
                                             </div>
@@ -155,7 +155,7 @@
                                                 {{ $user->gender ?? '—' }}
                                             </div>
                                         </td>
-                                        <td class="px-6 py-4 hidden md:table-cell">
+                                        <td class="px-6 py-4">
                                             @if($user->pending_deletion)
                                                 <div class="text-xs font-bold text-rose-600 dark:text-rose-400">Pending Deletion
                                                 </div>
@@ -172,7 +172,7 @@
                                                 @forelse($user->getRoleNames() as $role)
                                                                                     <span
                                                                                         class="inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-black uppercase tracking-widest 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                        {{ $role === 'Super Admin' ? 'bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20' :
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                {{ $role === 'Super Admin' ? 'bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20' :
                                                     ($role === 'Official' ? 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20' :
                                                         ($role === 'Admin' ? 'bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20' :
                                                             'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20')) }}">

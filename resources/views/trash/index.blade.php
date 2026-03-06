@@ -50,7 +50,7 @@
             <div class="flex flex-wrap gap-2 mb-6">
                 @foreach($trashed as $key => $data)
                             <a href="{{ route('trash.index', ['tab' => $key]) }}" class="px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest transition-all border
-                                    {{ $activeTab === $key
+                                                {{ $activeTab === $key
                     ? 'bg-indigo-500/15 text-indigo-400 border-indigo-500/30'
                     : 'bg-white/5 text-slate-400 border-white/5 hover:bg-white/10 hover:text-white' }}">
                                 {{ $data['label'] }}
@@ -65,8 +65,8 @@
             <!-- Active Tab Content -->
             <div
                 class="overflow-hidden rounded-2xl border border-slate-200 dark:border-white/5 bg-slate-50 dark:bg-slate-900/50">
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left border-collapse">
+                <div class="overflow-x-auto overflow-y-hidden w-full max-w-full">
+                    <table class="w-full text-left border-collapse min-w-[700px] sm:min-w-[800px]">
                         <thead>
                             <tr>
                                 <th
@@ -176,7 +176,8 @@
                                                 </svg>
                                             </div>
                                             <p class="text-sm text-slate-500 font-bold">No trashed
-                                                {{ strtolower($trashed[$activeTab]['label']) }}</p>
+                                                {{ strtolower($trashed[$activeTab]['label']) }}
+                                            </p>
                                             <p class="text-[10px] text-slate-500/70 uppercase tracking-widest">All items are
                                                 active</p>
                                         </div>

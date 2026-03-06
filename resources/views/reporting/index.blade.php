@@ -22,7 +22,7 @@
                     </p>
                 </div>
 
-                <div class="flex items-center gap-4">
+                <div class="flex flex-wrap sm:flex-nowrap items-center gap-4 mt-4 md:mt-0">
                     <div class="flex items-center gap-2">
                         <a href="{{ route('reporting.export.excel', ['week_start' => $weekStart->toDateString()]) }}"
                             class="flex items-center gap-2 px-3 py-2 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 text-[10px] font-black uppercase tracking-widest hover:bg-emerald-500/20 transition-all">
@@ -55,26 +55,27 @@
                         <div
                             class="px-4 py-2 bg-slate-50 dark:bg-white/5 rounded-xl border border-slate-200 dark:border-white/5">
                             <span
-                                class="text-[10px] font-black text-slate-900 dark:text-white uppercase tracking-widest">
+                                class="text-[10px] font-black text-slate-900 dark:text-white uppercase tracking-widest whitespace-nowrap">
                                 Week of {{ $weekStart->format('M d') }}
                             </span>
                         </div>
                         @if($weekStart->copy()->addWeek()->lte(now()->startOfWeek(\Carbon\Carbon::SUNDAY)))
-                        <a href="{{ route('reporting.index', ['week_start' => $weekStart->copy()->addWeek()->toDateString()]) }}"
-                            class="p-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-white/5 text-slate-600 dark:text-slate-400 transition-all"
-                            title="Next Week">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
-                                    d="M9 5l7 7-7 7" />
-                            </svg>
-                        </a>
+                            <a href="{{ route('reporting.index', ['week_start' => $weekStart->copy()->addWeek()->toDateString()]) }}"
+                                class="p-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-white/5 text-slate-600 dark:text-slate-400 transition-all"
+                                title="Next Week">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                        d="M9 5l7 7-7 7" />
+                                </svg>
+                            </a>
                         @else
-                        <span class="p-2.5 rounded-xl text-slate-300 dark:text-slate-700 cursor-not-allowed" title="Current week">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
-                                    d="M9 5l7 7-7 7" />
-                            </svg>
-                        </span>
+                            <span class="p-2.5 rounded-xl text-slate-300 dark:text-slate-700 cursor-not-allowed"
+                                title="Current week">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                        d="M9 5l7 7-7 7" />
+                                </svg>
+                            </span>
                         @endif
                     </div>
                 </div>
@@ -130,8 +131,8 @@
                     </div>
                     <div
                         class="glass-card overflow-hidden border border-slate-200 dark:border-white/5 bg-white dark:bg-slate-900/50">
-                        <div class="overflow-x-auto">
-                            <table class="w-full text-left">
+                        <div class="overflow-x-auto overflow-y-hidden w-full max-w-full">
+                            <table class="w-full text-left min-w-[500px] sm:min-w-[600px]">
                                 <thead
                                     class="bg-slate-50 dark:bg-white/5 border-b border-slate-200 dark:border-white/5">
                                     <tr>
@@ -192,8 +193,8 @@
                     </div>
                     <div
                         class="glass-card overflow-hidden border border-slate-200 dark:border-white/5 bg-white dark:bg-slate-900/50">
-                        <div class="overflow-x-auto">
-                            <table class="w-full text-left">
+                        <div class="overflow-x-auto overflow-y-hidden w-full max-w-full">
+                            <table class="w-full text-left min-w-[500px] sm:min-w-[600px]">
                                 <thead
                                     class="bg-slate-50 dark:bg-white/5 border-b border-slate-200 dark:border-white/5">
                                     <tr>
