@@ -17,6 +17,17 @@
                     </div>
                 @endif
 
+                @if(session('error'))
+                    <div
+                        class="flash-alert mb-6 p-4 bg-rose-500/10 border border-rose-500/20 text-rose-600 dark:text-rose-400 rounded-xl flex items-center gap-3">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span class="text-sm font-bold">{{ session('error') }}</span>
+                    </div>
+                @endif
+
                 <div class="mb-6 flex items-center justify-between">
                     <div>
                         <h3 class="text-base font-bold text-slate-900 dark:text-white tracking-tight">Church names
@@ -108,12 +119,14 @@
                         <x-input-label for="name" :value="__('Church Name')" />
                         <x-text-input type="text" name="name" id="name" required class="block w-full mt-1"
                             placeholder="e.g. CE Atomic" />
+                        <div id="name-warning" class="mt-2 text-[11px] font-bold text-rose-500 uppercase tracking-wider hidden italic">
+                        </div>
                         <x-input-error :messages="$errors->get('name')" class="mt-2" />
                     </div>
                     <div class="flex gap-3">
                         <x-secondary-button type="button" class="flex-1 justify-center"
                             onclick="document.getElementById('createAssemblyModal').classList.add('hidden')">Cancel</x-secondary-button>
-                        <x-primary-button class="flex-1 justify-center">Create</x-primary-button>
+                        <x-primary-button id="submit-btn" class="flex-1 justify-center">Create</x-primary-button>
                     </div>
                 </form>
             </div>
@@ -144,12 +157,14 @@
                     <div class="mb-4">
                         <x-input-label for="edit_name" :value="__('Church Name')" />
                         <x-text-input type="text" name="name" id="edit_name" required class="block w-full mt-1" />
+                        <div id="edit-name-warning" class="mt-2 text-[11px] font-bold text-rose-500 uppercase tracking-wider hidden italic">
+                        </div>
                         <x-input-error :messages="$errors->get('name')" class="mt-2" />
                     </div>
                     <div class="flex gap-3">
                         <x-secondary-button type="button" class="flex-1 justify-center"
                             onclick="document.getElementById('editAssemblyModal').classList.add('hidden')">Cancel</x-secondary-button>
-                        <x-primary-button class="flex-1 justify-center">Update</x-primary-button>
+                        <x-primary-button id="edit-submit-btn" class="flex-1 justify-center">Update</x-primary-button>
                     </div>
                 </form>
             </div>
@@ -157,15 +172,74 @@
     </div>
 
     <script>
+        function debounce(func, wait) {
+            let timeout;
+            return function (...args) {
+                clearTimeout(timeout);
+                timeout = setTimeout(() => func.apply(this, args), wait);
+            };
+        }
+
+        async function checkDuplicateName(name, warningDiv, submitBtn, originalName = null) {
+            if (!name || name === originalName) {
+                warningDiv.classList.add('hidden');
+                submitBtn.disabled = false;
+                submitBtn.style.opacity = '1';
+                return;
+            }
+
+            try {
+                const response = await fetch(`/local-assemblies/check-name?name=${encodeURIComponent(name)}`);
+                const data = await response.json();
+
+                if (data.exists) {
+                    warningDiv.textContent = `⚠️ The name "${name}" already exists!`;
+                    warningDiv.classList.remove('hidden');
+                    submitBtn.disabled = true;
+                    submitBtn.style.opacity = '0.5';
+                } else {
+                    warningDiv.classList.add('hidden');
+                    submitBtn.disabled = false;
+                    submitBtn.style.opacity = '1';
+                }
+            } catch (error) {
+                console.error('Error checking name:', error);
+            }
+        }
+
+        const nameInput = document.getElementById('name');
+        const nameWarning = document.getElementById('name-warning');
+        const submitBtn = document.getElementById('submit-btn');
+
+        nameInput.addEventListener('input', debounce((e) => {
+            checkDuplicateName(e.target.value, nameWarning, submitBtn);
+        }, 500));
+
+        const editNameInput = document.getElementById('edit_name');
+        const editNameWarning = document.getElementById('edit-name-warning');
+        const editSubmitBtn = document.getElementById('edit-submit-btn');
+        let currentOriginalName = '';
+
+        editNameInput.addEventListener('input', debounce((e) => {
+            checkDuplicateName(e.target.value, editNameWarning, editSubmitBtn, currentOriginalName);
+        }, 500));
+
         function openEditModal(id, name, groupId) {
             const modal = document.getElementById('editAssemblyModal');
             const form = document.getElementById('editForm');
             const input = document.getElementById('edit_name');
             const groupSelect = document.getElementById('edit_church_group_id');
 
+            currentOriginalName = name;
             form.action = `/local-assemblies/${id}`;
             input.value = name;
             groupSelect.value = groupId;
+            
+            // Clear previous warnings
+            editNameWarning.classList.add('hidden');
+            editSubmitBtn.disabled = false;
+            editSubmitBtn.style.opacity = '1';
+            
             modal.classList.remove('hidden');
         }
     </script>

@@ -31,6 +31,7 @@ Route::get('church-groups/check-contact', [ChurchGroupController::class, 'checkC
 Route::get('first-timers/check-contact', [FirstTimerController::class, 'checkContact'])->name('first-timers.check-contact');
 Route::get('church-groups/{churchGroup}/pcfs', [ChurchGroupController::class, 'getPcfs'])->name('church-groups.pcfs');
 Route::get('church-groups/{churchGroup}/churches', [ChurchGroupController::class, 'getChurches'])->name('church-groups.churches');
+Route::get('local-assemblies/check-name', [LocalAssemblyController::class, 'checkName'])->name('local-assemblies.check-name');
 
 use App\Http\Controllers\PerformanceController;
 

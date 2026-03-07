@@ -15,28 +15,61 @@ class LocalAssemblyController extends Controller
         return view('local-assemblies.index', compact('assemblies', 'groups'));
     }
 
+    public function checkName(Request $request)
+    {
+        $name = $request->query('name');
+        if (!$name) {
+            return response()->json(['exists' => false]);
+        }
+
+        $exists = LocalAssembly::where('name', $name)->whereNull('deleted_at')->exists();
+        return response()->json(['exists' => $exists]);
+    }
+
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'church_group_id' => 'required|exists:church_groups,id',
-            'name' => 'required|string|max:255|unique:local_assemblies,name'
-        ]);
+        try {
+            $validated = $request->validate([
+                'church_group_id' => 'required|exists:church_groups,id',
+                'name' => [
+                    'required',
+                    'string',
+                    'max:255',
+                    \Illuminate\Validation\Rule::unique('local_assemblies')->whereNull('deleted_at')
+                ]
+            ]);
 
-        LocalAssembly::create($validated);
+            LocalAssembly::create($validated);
 
-        return redirect()->back()->with('success', 'Church created successfully!');
+            return redirect()->back()->with('success', 'Church created successfully!');
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            throw $e;
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Error creating church: ' . $e->getMessage())->withInput();
+        }
     }
 
     public function update(Request $request, LocalAssembly $localAssembly)
     {
-        $validated = $request->validate([
-            'church_group_id' => 'required|exists:church_groups,id',
-            'name' => 'required|string|max:255|unique:local_assemblies,name,' . $localAssembly->id
-        ]);
+        try {
+            $validated = $request->validate([
+                'church_group_id' => 'required|exists:church_groups,id',
+                'name' => [
+                    'required',
+                    'string',
+                    'max:255',
+                    \Illuminate\Validation\Rule::unique('local_assemblies')->ignore($localAssembly->id)->whereNull('deleted_at')
+                ]
+            ]);
 
-        $localAssembly->update($validated);
+            $localAssembly->update($validated);
 
-        return redirect()->back()->with('success', 'Church updated successfully!');
+            return redirect()->back()->with('success', 'Church updated successfully!');
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            throw $e;
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Error updating church: ' . $e->getMessage())->withInput();
+        }
     }
 
     public function destroy(LocalAssembly $localAssembly)
