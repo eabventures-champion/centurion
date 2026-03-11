@@ -14,9 +14,9 @@
             <form method="POST" action="{{ route('login') }}" class="space-y-6">
                 @csrf
 
-                <!-- Email Address -->
+                <!-- Login Field (Email or Contact) -->
                 <div class="space-y-2">
-                    <label for="email"
+                    <label for="login"
                         class="block text-[11px] font-black text-slate-500 uppercase tracking-[2px] ml-1">
                         Email or Phone Number
                     </label>
@@ -28,11 +28,11 @@
                                     d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                             </svg>
                         </div>
-                        <input id="email" type="email" name="email" :value="old('email')" required autofocus
+                        <input id="login" type="text" name="login" :value="old('login')" required autofocus
                             placeholder="Enter your credentials"
                             class="block w-full pl-12 pr-4 py-4 bg-slate-950/50 border-white/5 text-white placeholder-slate-600 focus:border-indigo-500 focus:ring-indigo-500 rounded-2xl transition-all sm:text-sm shadow-inner">
                     </div>
-                    <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                    <x-input-error :messages="$errors->get('login')" class="mt-2" />
                 </div>
 
                 <!-- Password -->
